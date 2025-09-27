@@ -133,19 +133,23 @@ achievements.forEach((ach, index) => {
 // ======================
 const projects = [
   {
-    title: "Project 1",
-    image: "",
-    content: "Deskripsi lengkap tentang Project 1.",
+    title: "Short Movie Balanced",
+    image: "img/project/Balanced.png",
+    content: "Festival Film Pendek Madrasah 2024 | MAN 1 TASIKMALAYA",
+    link: "https://www.youtube.com/watch?v=RQ7muKKWAj4",
   },
   {
-    title: "Project 2",
-    image: "",
-    content: "Deskripsi lengkap tentang Project 2.",
+    title: "song TPI",
+    image: "img/project/tpi.png",
+    content:
+      "TERIMA PENGHAMBAAN INI - MANSATAS 2024 | Musik karya man 1 tasikmalaya",
+    link: "https://www.youtube.com/watch?v=84NoBiEAJL0",
   },
   {
-    title: "Project 3",
-    image: "",
-    content: "Deskripsi lengkap tentang Project 3.",
+    title: "Street Fotography",
+    image: "img/project/basket.png",
+    content: "Konten tiktok Fotografi | darllah",
+    link: "https://www.tiktok.com/@darllah/photo/7508351900429962501",
   },
 ];
 
@@ -183,6 +187,7 @@ projects.forEach((proj, index) => {
               <p class="text-sm mb-4">
                 ${proj.content}
               </p>
+              <a href="${proj.link}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md text-xs">Lihat</a>
             </div>
     `;
   projectsContainer.appendChild(card);
