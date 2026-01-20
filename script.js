@@ -1,217 +1,405 @@
-// Aktifkan feather icons
-feather.replace();
+<!DOCTYPE html>
+<html lang="en" class="scrooll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/daisyui@5"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- light dark mode -->
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+      };
+    </script>
 
-// ===============
-// HAMBURGER MENU
-// ===============
-const hamburger = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobile-menu");
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
 
-// Toggle buka/tutup menu
-hamburger.addEventListener("click", (e) => {
-  e.stopPropagation(); // biar klik tombol gak dianggap klik luar
-  if (mobileMenu.classList.contains("hidden")) {
-    // tampilkan dengan transisi
-    mobileMenu.classList.remove("hidden");
-    requestAnimationFrame(() => {
-      mobileMenu.classList.add("opacity-100", "translate-y-0");
-      mobileMenu.classList.remove("opacity-0", "-translate-y-4");
-    });
-  } else {
-    // sembunyikan dengan transisi
-    mobileMenu.classList.add("opacity-0", "-translate-y-4");
-    mobileMenu.classList.remove("opacity-100", "translate-y-0");
-    setTimeout(() => {
-      mobileMenu.classList.add("hidden");
-    }, 300); // durasi transisi
-  }
-});
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body
+    class="font-sans bg-gray-50 text-gray-900 transition-colors duration-500 transition-all scrooll-smooth"
+  >
+    <!-- Navbar -->
+    <nav
+      class="fixed top-0 left-0 w-full bg-white shadow z-50 transition-colors duration-500 dark:bg-slate-800"
+    >
+      <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
+        <h1 class="text-2xl font-bold dark:text-white text-slate-900">Dar.</h1>
 
-// Klik di luar menu -> tutup
-document.addEventListener("click", (e) => {
-  if (
-    !mobileMenu.contains(e.target) &&
-    !hamburger.contains(e.target) &&
-    !mobileMenu.classList.contains("hidden")
-  ) {
-    mobileMenu.classList.add("opacity-0", "-translate-y-4");
-    mobileMenu.classList.remove("opacity-100", "translate-y-0");
-    setTimeout(() => {
-      mobileMenu.classList.add("hidden");
-    }, 300);
-  }
-});
-
-// ======================
-// DATA MODAL
-// ======================
-const modalData = {};
-
-function openModal(type) {
-  const modal = document.getElementById("modal");
-  const data = modalData[type];
-  if (data) {
-    document.getElementById("modal-title").innerText = data.title;
-    document.getElementById("modal-content").innerText = data.content;
-    modal.classList.remove("hidden");
-  }
-}
-
-function closeModal() {
-  document.getElementById("modal").classList.add("hidden");
-}
-
-// Tutup modal dengan klik luar
-document.getElementById("modal").addEventListener("click", (e) => {
-  if (e.target.id === "modal") {
-    closeModal();
-  }
-});
-
-// Tutup modal dengan tombol ESC
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    closeModal();
-  }
-});
-
-// ======================
-// DATA ACHIEVEMENTS
-// ======================
-const achievements = [
-  {
-    title: "Dasar Visualisasi Data",
-    image: "img/sertif/dicoding1.jpg",
-    content: "Sertifikat pertama yang saya dapatkan di kelas online dicoding",
-  },
-  {
-    title: "Sertifikat 2",
-    image: "",
-    content: "Deskripsi lengkap tentang sertifikat 2.",
-  },
-  {
-    title: "Sertifikat 3",
-    image: "",
-    content: "Deskripsi lengkap tentang sertifikat 3.",
-  },
-];
-
-const achievementsContainer = document.getElementById("achievements-container");
-achievements.forEach((ach, index) => {
-  // simpan data untuk modal
-  modalData[`achievement${index}`] = {
-    title: ach.title,
-    content: ach.content,
-    image: ach.image,
-  };
-
-  // card HTML
-  const card = document.createElement("div");
-  card.className =
-    "card bg-base-100 shadow-sm text-slate-900 max-w-xs rounded-xl";
-  card.innerHTML = `
-            <figure>
-              <img
-              class="w-full h-[160px] object-cover-down "
-                src="${ach.image}"
-                alt="Image"
-              />
-            </figure>
-            <div
-              class="card-body bg-slate-300 text-slate-900 dark:bg-slate-800 dark:text-slate-200"
+        <div class="flex items-center space-x-4">
+          <!-- Hamburger -->
+          <button
+            id="hamburger"
+            class="md:hidden focus:outline-none dark:text-white"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <h2 class="card-title text-[1.1rem] font-bold">${ach.title}</h2>
-              <p class"font-normal">${ach.content}
-              </p>
-            </div>
-    `;
-  achievementsContainer.appendChild(card);
-});
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
 
-// ======================
-// DATA PROJECTS
-// ======================
-const projects = [
-  {
-    title: "Short Movie Balanced",
-    image: "img/project/Balanced.png",
-    content: "Festival Film Pendek Madrasah 2024 | MAN 1 TASIKMALAYA",
-    link: "https://www.youtube.com/watch?v=RQ7muKKWAj4",
-  },
-  {
-    title: "song TPI",
-    image: "img/project/tpi.png",
-    content:
-      "TERIMA PENGHAMBAAN INI - MANSATAS 2024 | Musik karya man 1 tasikmalaya",
-    link: "https://www.youtube.com/watch?v=84NoBiEAJL0",
-  },
-  {
-    title: "Street Fotography",
-    image: "img/project/basket.png",
-    content: "Konten tiktok Fotografi | darllah",
-    link: "https://www.tiktok.com/@darllah/photo/7508351900429962501",
-  },
-];
+          <!-- Menu desktop -->
+          <ul class="hidden md:flex space-x-6">
+            <li>
+              <a href="#home" class="hover:text-blue-500 dark:text-white"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a href="#about" class="hover:text-blue-500 dark:text-white"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="#achievements"
+                class="hover:text-blue-500 dark:text-white"
+                >Achievements</a
+              >
+            </li>
+            <li>
+              <a href="#project" class="hover:text-blue-500 dark:text-white"
+                >Projects</a
+              >
+            </li>
+            <li>
+              <a href="#contact" class="hover:text-blue-500 dark:text-white"
+                >Contact</a
+              >
+            </li>
+          </ul>
+          <!-- Dark Mode Toggle -->
+          <button
+            id="theme-toggle"
+            class="p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+          >
+            🌙
+          </button>
+        </div>
+      </div>
 
-const projectsContainer = document.querySelector("#project-card");
-projects.forEach((proj, index) => {
-  // simpan data untuk modal
-  modalData[`project${index}`] = {
-    title: proj.title,
-    content: proj.content,
-    image: proj.image,
-  };
+      <!-- Menu mobile -->
+      <ul
+        id="mobile-menu"
+        class="hidden flex-col items-center space-y-4 bg-white dark:bg-gray-900 absolute top-full left-0 w-full py-4 shadow-lg opacity-0 transform -translate-y-4 transition-all duration-300 px-6"
+      >
+        <li>
+          <a
+            href="#home"
+            class="block hover:text-blue-500 hover:hover:text-blue-500 dark:text-white"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="#about"
+            class="block hover:text-blue-500 hover:hover:text-blue-500 dark:text-white"
+            >About</a
+          >
+        </li>
+        <li>
+          <a
+            href="#achievements"
+            class="block hover:text-blue-500 hover:hover:text-blue-500 dark:text-white"
+            >Achievements</a
+          >
+        </li>
+        <li>
+          <a
+            href="#project"
+            class="block hover:text-blue-500 hover:hover:text-blue-500 dark:text-white"
+            >Projects</a
+          >
+        </li>
+        <li>
+          <a
+            href="#contact"
+            class="block hover:text-blue-500 hover:hover:text-blue-500 dark:text-white"
+            >Contact</a
+          >
+        </li>
+      </ul>
+    </nav>
 
-  // card HTML
-  const card = document.createElement("div");
-  card.className =
-    "relative w-80 h-64 rounded-xl overflow-hidden shadow-lg group cursor-pointer";
-  card.innerHTML = `
-            <!-- Gambar -->
+    <!-- Home -->
+    <section
+      id="home"
+      class="h-[calc(108vh-64px)] bg-slate-300 text-slate-900 flex items-center justify-center px-8 mt-6 dark:bg-slate-900 dark:text-white"
+    >
+      <div
+        class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center px- text-center md:text-left"
+      >
+        <!-- Foto -->
+        <div class="flex justify-center md:justify-end">
+          <img
+            src="img/Desain tanpa judul (1).png"
+            alt="Profile"
+            class="drop-shadow-xl h-auto object-cover md:w-[800px]"
+          />
+        </div>
+        <!-- Info -->
+        <div class="flex flex-col items-center md:items-start -mt-8 md:mt-0">
+          <h2 class="text-2xl md:text-4xl font-bold md:mb-4">
+            DIDAR MUKTAFA BILLAH
+          </h2>
+          <p class="mb-3 md:mb-6 md:text-2xl">Fotografer | Mahasiswa IT</p>
+          <div class="flex space-x-2">
+            <a
+              href="https://www.instagram.com/_darllah_/"
+              onclick="window.open(this.href, '_blank'); return false;"
+              ><i
+                data-feather="instagram"
+                class="hover:text-blue-500 transition-all"
+              ></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/didar-muktafa-billah-93021437b/"
+              onclick="window.open(this.href, '_blank'); return false;"
+              ><i
+                data-feather="linkedin"
+                class="hover:text-blue-500 transition-all"
+              ></i
+            ></a>
+            <a href=""
+              ><i
+                data-feather="github"
+                class="hover:text-blue-500 transition-all"
+              ></i
+            ></a>
+            <!-- TikTok -->
+            <a
+              href="https://www.tiktok.com/@darllah"
+              onclick="window.open(this.href, '_blank'); return false;"
+              class="w-6 h-6 transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 256 256"
+                fill="currentColor"
+                class="w-6 h-6 text-slate-900 dark:text-white hover:text-blue-500 hover:hover:text-blue-500 transition-all"
+              >
+                <path
+                  d="M192 0h-32v160a32 32 0 1 1-32-32V96a64 64 0 1 0 64 64V64a95.8 95.8 0 0 0 32 0V32a64 64 0 0 1-32-32z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://x.com/darllah_"
+              onclick="window.open(this.href, '_blank'); return false;"
+              class=""
+              ><i
+                data-feather="twitter"
+                class="hover:text-blue-500 transition-all _blank"
+              ></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section
+      id="about"
+      class="py-20 bg-white text-slate-900 dark:bg-slate-700 dark:text-slate-200"
+    >
+      <div class="max-w-6xl mx-auto px-6 -mb-10">
+        <h2 class="text-3xl font-bold mb-8 text-center mx-auto">About Me</h2>
+        <div class="grid md:grid-cols-2 gap-8 items-start">
+          <!-- Foto (di mobile muncul duluan) -->
+          <div class="md:order-2 w-70 md:w-sm mx-auto">
             <img
-              src="${proj.image}"
-              alt="image"
-              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              src="img/WhatsApp Image 2025-09-01 at 16.56.53.jpeg"
+              alt="Foto About"
+              class="w-full h-auto rounded-2xl shadow-lg object-cover"
             />
+          </div>
 
-            <!-- Overlay hitam -->
-            <div
-              class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-            ></div>
-
-            <!-- Konten yang muncul dari bawah -->
-            <div
-              class="absolute bottom-0 left-0 right-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-500 text-white"
+          <!-- Teks content -->
+          <div class="md:order-1">
+            <p class="mb-4 md:text-xl w-full pr-4">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mahsiswa semester 1 Prodi Informatika UII, yang memiliki cita-cita menjadi seorang AI Engineer<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Walaupun belum memiliki pengalaman kerja profesional, saya terbiasa belajar mandiri, mampu bekerja dalam tim, serta siap mengikuti proses pembelajaran dan kegiatan teknis dalam lingkungan kerja.
+            </p>
+            <h3 class="text-2xl font-semibold mt- mb-3 md:text-2xl">
+              Riwayat Pendidikan
+            </h3>
+            <ul
+              class="list-disc list-inside space-y-2 mb-3 md:text-xl font-semibold"
             >
-              <h2 class="text-xl font-bold mb-2">${proj.title}</h2>
-              <p class="text-sm mb-4">
-                ${proj.content}
-              </p>
-              <a href="${proj.link}" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md text-xs">Lihat</a>
-            </div>
-    `;
-  projectsContainer.appendChild(card);
-});
+              <li>
+                SDIT AL-MULTAZAM
+                <p class="font-normal text-sm">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2013 - 2019
+                </p>
+              </li>
+              <li>
+                SMPIT AL-MULTAZAM 2
+                <p class="font-normal text-sm">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2019 - 2022
+                </p>
+              </li>
+              <li>
+                MAN 1 TASIKMALAYA
+                <p class="font-normal text-sm">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2022 - 2025
+                </p>
+              </li>
+              <li>
+                UNIVERSITAS ISLAM INDONESIA
+                <p class="font-normal text-sm">
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2025 - now
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-// ======================
-// DARK MODE TOGGLE
-// ======================
-const themeToggle = document.getElementById("theme-toggle");
-const htmlEl = document.documentElement;
+    <!-- Achievements -->
+    <section
+      id="achievements"
+      class="py-20 bg-gray-50 dark:bg-slate-900 dark:text-white text-slate-800 transition-colors"
+    >
+      <div class="max-w-6xl mx-auto px-6">
+        <h2 class="text-3xl font-bold mb-8 text-center">Achievements</h2>
+        <div
+          id="achievements-container"
+          class="grid md:grid-cols-3 gap-6 flex justify-center"
+        ></div>
+      </div>
+    </section>
 
-// cek preference awal
-if (localStorage.getItem("theme") === "dark") {
-  htmlEl.classList.add("dark");
-  themeToggle.textContent = "☀️";
-}
+    <!-- Projects -->
+    <section
+      id="project"
+      class="py-20 bg-white dark:bg-slate-700 dark:text-slate-200 text-slate-800 transition-colors"
+    >
+      <div class="max-w-6xl mx-auto px-6 md:px-0">
+        <h2 class="text-3xl font-bold mb-8 text-center mx-auto">Projects</h2>
+        <div
+          id="project-card"
+          class="grid md:grid-cols-3 gap-16 text-center flex justify-center"
+        ></div>
+      </div>
+    </section>
 
-themeToggle.addEventListener("click", () => {
-  htmlEl.classList.toggle("dark");
-  if (htmlEl.classList.contains("dark")) {
-    themeToggle.textContent = "☀️"; // ikon sun
-    localStorage.setItem("theme", "dark");
-  } else {
-    themeToggle.textContent = "🌙"; // ikon moon
-    localStorage.setItem("theme", "light");
-  }
-});
+    <!-- Contact -->
+    <section
+      id="contact"
+      class="py-20 bg-gray-50 text-center dark:bg-slate-900 dark:text-slate-200 text-slate-800"
+    >
+      <h2 class="text-3xl font-bold mb-6 mx-auto">Contact Me</h2>
+      <a
+        href="https://wa.me/6281234567890"
+        target="_blank"
+        class="inline-flex items-center px-6 py-3 bg-green-500 text-white rounded-xl shadow hover:bg-green-600"
+      >
+        <i data-feather="message-circle" class="mr-2"></i> Chat via WhatsApp
+      </a>
+    </section>
+
+    <!-- footer -->
+    <footer
+      id="footer"
+      class="bg-gray-800 dark:bg-slate-300 text-white dark:text-slate-900 py-6"
+    >
+      <div class="max-w-6xl mx-auto px-6 flex flex-col items-center">
+        <!-- Sosial Media -->
+        <div class="flex space-x-2 mb-4">
+          <a
+            href="https://www.instagram.com/_darllah_/"
+            onclick="window.open(this.href, '_blank'); return false;"
+            class="hover:text-blue-500 transition-all"
+            ><i data-feather="instagram"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/didar-muktafa-billah-93021437b/"
+            onclick="window.open(this.href, '_blank'); return false;"
+            class="hover:text-blue-500 transition-all"
+            ><i data-feather="linkedin"></i
+          ></a>
+          <a href=""
+            ><i
+              data-feather="github"
+              class="hover:text-blue-500 transition-all"
+            ></i
+          ></a>
+          <!-- TikTok SVG -->
+          <a
+            href="https://www.tiktok.com/@darllah"
+            onclick="window.open(this.href, '_blank'); return false;"
+            class="h-6 w-6 hover:text-blue-500 transition-all"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 256 256"
+              fill="currentColor"
+              class="w-6 h-6 -ml-1"
+            >
+              <path
+                d="M192 0h-32v160a32 32 0 1 1-32-32V96a64 64 0 1 0 64 64V64a95.8 95.8 0 0 0 32 0V32a64 64 0 0 1-32-32z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://x.com/darllah_"
+            onclick="window.open(this.href, '_blank'); return false;"
+            class="hover:text-blue-500 transition-all"
+            ><i data-feather="twitter"></i
+          ></a>
+        </div>
+        <!-- Credit -->
+        <p class="text-center text-sm">
+          &copy; 2025
+          <a
+            href="https://www.instagram.com/_darllah_/"
+            onclick="window.open(this.href, '_blank'); return false;"
+            class="font-semibold hover:text-blue-500 transition-all"
+            >Didar Muktafa Billah</a
+          >
+          All rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Modal (Reusable) -->
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50"
+    >
+      <div class="bg-white p-6 rounded-xl shadow max-w-lg w-full">
+        <h3 id="modal-title" class="text-2xl font-bold mb-4">Title</h3>
+        <p id="modal-content" class="mb-6">Content here...</p>
+        <button
+          onclick="closeModal()"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
